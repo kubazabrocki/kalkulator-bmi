@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Kalkulator BMI</title>
+</head>
+<body>
+  <h1>Kalkulator Wskaźnika Masy Ciała (BMI)</h1>
+
+  <script>
+    /* 
+      Projekt: Kalkulator BMI
+      Autor: Jakub Stefan Zabrocki 4tf
+      Oblicza BMI na podstawie danych użytkownika i ocenia stan zdrowia.
+    */
+
+    // Pobranie danych od użytkownika
+    let wzrostCm = prompt("Podaj swój wzrost w cm:");
+    let masaKg = prompt("Podaj swoją masę w kg:");
+    const rokObliczen = 2025;
+
+    // Sprawdzenie typu danych
+    console.log("Typ wzrostCm:", typeof wzrostCm);
+
+    // Konwersja danych na liczby
+    wzrostCm = Number(wzrostCm);
+    masaKg = Number(masaKg);
+    let wzrostM = wzrostCm / 100;
+
+    // Funkcja strzałkowa do obliczania BMI
+    const obliczBMI = (masa, wzrost) => {
+      // Celowy błąd logiczny do debugowania (np. mnożenie zamiast dzielenia)
+      // return masa * Math.pow(wzrost, 2); // BŁĄD
+      return masa / Math.pow(wzrost, 2); // Poprawny wzór
+    };
+
+    // Debugowanie
+    debugger;
+    let wynikBMI = obliczBMI(masaKg, wzrostM);
+
+    // Funkcja oceniająca stan zdrowia
+    function ocenStan(bmi) {
+      if (bmi < 18.5) {
+        return "Niedowaga";
+      } else if (bmi >= 18.5 && bmi <= 24.9) {
+        return "Waga prawidłowa";
+      } else {
+        return "Nadwaga lub otyłość";
+      }
+    }
+
+    let ocena = ocenStan(wynikBMI);
+
+    // Tablica kategorii BMI
+    let kategorie = ['Niedowaga', 'Prawidłowa', 'Nadwaga'];
+    for (let i = 0; i < kategorie.length; i++) {
+      console.log("Kategoria:", kategorie[i]);
+    }
+
+    // Pobranie imienia (opcjonalnie)
+    let imie = prompt("Podaj swoje imię (opcjonalnie):");
+
+    // Komunikat końcowy
+    let komunikat = `Witaj ${imie || "Użytkowniku"}! Twoje BMI wynosi ${wynikBMI.toFixed(2)}. Ocena: ${ocena}.`;
+    alert(komunikat);
+
+    // IIFE - natychmiast wywoływana funkcja
+    (function() {
+      console.log("Skrypt zakończył działanie.");
+    })();
+
+    // Analiza danych historycznych
+    let daneHistoryczne = [20.5, 23.1, 25.8, 17.9, 30.0];
+    let nadwaga = daneHistoryczne.filter(bmi => bmi >= 25);
+    console.log("Wyniki kwalifikujące się jako nadwaga lub otyłość:", nadwaga);
+  </script>
+</body>
+</html>
